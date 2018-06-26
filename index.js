@@ -18,10 +18,23 @@ const client = createClient({
 
 meetup.getSelfGroups((err, res) => {
   // console.log(err, res);
-  console.log(processMeetupData(res));
+  let selfGroups = processMeetupData(res);
+
+  selfGroups.forEach(group => {
+    if (group.nextEvent !== 0) {
+      console.log(group);
+      console.log(group.nextEvent);
+      meetup.getEvent({ id: group.nextEvent, urlname: group.urlname }, function(
+        err,
+        resp
+      ) {
+        console.log(err, resp);
+      });
+    }
+  });
 });
 
-// Get all Entries
+// Get all Contentful Entries
 // Main(async () => {
 //   const space = await client.getSpace(CONTENTFUL_SPACE);
 //   const entries = await space.getEntries();

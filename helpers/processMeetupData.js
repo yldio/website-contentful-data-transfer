@@ -7,6 +7,7 @@ const processMeetupData = arrayOfMeetups => {
     thisMeetup.meetupId = meetup.id;
     thisMeetup.name = meetup.name;
     thisMeetup.url = meetup.link;
+    thisMeetup.urlname = meetup.urlname;
     thisMeetup.nextEvent = meetup.next_event ? meetup.next_event.id : 0;
 
     outputArray.push(thisMeetup);
