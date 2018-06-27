@@ -1,110 +1,65 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const { createClient } = require("contentful-management");
-const Main = require("apr-main");
+const { createClient } = require('contentful-management');
+const Main = require('apr-main');
+const { default: Map } = require('apr-map');
+const Intercept = require('apr-intercept');
+const { promisify } = require('util');
+const find = require('lodash.find');
 
 const { CONTENTFUL_TOKEN, CONTENTFUL_SPACE, MEETUP_KEY } = process.env;
 
-const { processMeetupData } = require("./helpers/processMeetupData");
-const { processMeetupEvent } = require("./helpers/processMeetupEvent");
+const generateContentfulEvent = require('./helpers/generate-contentful-event');
+const processMeetupData = require('./helpers/process-meetup-data');
+const processMeetupEvent = require('./helpers/process-meetup-event');
 
-const meetup = require("meetup-api")({
+const meetup = require('meetup-api')({
   key: MEETUP_KEY
 });
 
 const client = createClient({
-  // space: CONTENTFUL_SPACE,
   accessToken: CONTENTFUL_TOKEN
 });
 
-// Meetup npm module relies on callbacks, so making the below async/await is no-go
-meetup.getSelfGroups((err, res) => {
-  // console.log(err, res);
-  let selfGroups = processMeetupData(res);
+const getSelfGroups = promisify(meetup.getSelfGroups.bind(meetup));
+const getEvent = promisify(meetup.getEvent.bind(meetup));
 
-  // console.log(selfGroups);
+Main(async () => {
+  const space = await client.getSpace(CONTENTFUL_SPACE);
+  const environment = await space.getEnvironment('master');
 
-  selfGroups.forEach(group => {
-    if (group.nextEvent !== 0) {
-      // console.log(group);
-      // console.log(group.nextEvent);
-      meetup.getEvent(
-        { id: group.nextEvent, urlname: group.urlname },
-        (err, res) => {
-          // console.log(res);
-          const upcomingEventObject = processMeetupEvent(res);
-          console.log(upcomingEventObject.time + upcomingEventObject.duration);
-          client
-            .getSpace(CONTENTFUL_SPACE)
-            .then(space => space.getEnvironment("master"))
-            .then(environment =>
-              environment.createEntry("meetupEvent", {
-                fields: {
-                  thisMeetupCode: {
-                    "en-US": `${group.urlname}-${group.nextEvent}`
-                  },
-                  meetupUrlName: {
-                    "en-US": group.urlname
-                  },
-                  linkToEvent: {
-                    "en-US": upcomingEventObject.link
-                  },
-                  date: {
-                    "en-US": upcomingEventObject.date
-                  },
-                  startTime: {
-                    "en-US": new Date(upcomingEventObject.time)
-                  },
-                  endTime: {
-                    "en-US": new Date(
-                      upcomingEventObject.time + upcomingEventObject.duration
-                    )
-                  },
-                  address: {
-                    "en-US": `${upcomingEventObject.venue.name}&&${
-                      upcomingEventObject.venue.address1
-                    }&&${
-                      upcomingEventObject.venue.adress2
-                        ? upcomingEventObject.venue.adress2
-                        : ""
-                    }&&${
-                      upcomingEventObject.venue.address3
-                        ? upcomingEventObject.venue.address3
-                        : ""
-                    }&&${upcomingEventObject.venue.city}`
-                  }
-                }
-              })
-            )
-            .then(entry => console.log(entry))
-            .catch(console.error);
-        }
-      );
-    }
+  const { items: events } = await space.getEntries({
+    limit: 1000,
+    content_type: 'meetupEvent'
   });
+
+  const entries = await Map(
+    processMeetupData(await getSelfGroups()),
+    async group => {
+      const { urlname, meetupId, nextEvent } = group;
+
+      if (!nextEvent) {
+        return null;
+      }
+
+      const meetup = processMeetupEvent(
+        await getEvent({
+          id: nextEvent,
+          urlname
+        })
+      );
+
+      const ev = find(events, ['fields.linkToEvent.en-US', meetup.link]);
+      const entry = generateContentfulEvent({ ...meetup, ...group });
+
+      if (ev) {
+        // update
+        ev.fields = Object.assign(ev.fields, entry.fields);
+        return ev.update();
+      }
+
+      // create
+      return environment.createEntry('meetupEvent', entry);
+    }
+  );
 });
-
-// Get all Contentful Entries
-// Main(async () => {
-//   const space = await client.getSpace(CONTENTFUL_SPACE);
-//   const entries = await space.getEntries();
-//   console.log(entries.items);
-// });
-
-// Main(async () => {
-//   const space = await client.getSpace(CONTENTFUL_SPACE);
-//   const contentTypeList = await space.getContentTypes();
-//   console.log(contentTypeList);
-// });
-
-// Main(async () => {
-//   const space = await client.getSpace(CONTENTFUL_SPACE);
-//   const entries = await space.getEntries({
-//     content_type: "meetupEvent"
-//   });
-//   const items = entries.items;
-//
-//   items.forEach(item => {
-//     console.log(item);
-//   });
-// });

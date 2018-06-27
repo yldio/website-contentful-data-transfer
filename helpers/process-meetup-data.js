@@ -1,4 +1,4 @@
-const processMeetupData = arrayOfMeetups => {
+module.exports = arrayOfMeetups => {
   let outputArray = [];
 
   arrayOfMeetups.forEach(meetup => {
@@ -13,8 +13,4 @@ const processMeetupData = arrayOfMeetups => {
   });
 
   return outputArray;
-};
-
-module.exports = {
-  processMeetupData
 };

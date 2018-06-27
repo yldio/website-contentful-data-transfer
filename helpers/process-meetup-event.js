@@ -1,4 +1,4 @@
-const processMeetupEvent = eventObject => {
+module.exports = eventObject => {
   let outputObject = {};
 
   outputObject.name = eventObject.name;
@@ -17,8 +17,4 @@ const processMeetupEvent = eventObject => {
 
   console.log(outputObject);
   return outputObject;
-};
-
-module.exports = {
-  processMeetupEvent
 };
