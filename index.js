@@ -22,7 +22,7 @@ meetup.getSelfGroups((err, res) => {
   // console.log(err, res);
   let selfGroups = processMeetupData(res);
 
-  console.log(selfGroups);
+  // console.log(selfGroups);
 
   selfGroups.forEach(group => {
     if (group.nextEvent !== 0) {
@@ -32,7 +32,20 @@ meetup.getSelfGroups((err, res) => {
         { id: group.nextEvent, urlname: group.urlname },
         (err, res) => {
           // console.log(res);
-          processMeetupEvent(res);
+          const upcomingEventObject = processMeetupEvent(res);
+
+          client
+            .getSpace(CONTENTFUL_SPACE)
+            .then(space => space.getEnvironment("master"))
+            .then(environment =>
+              environment.createEntry("meetupEvent", {
+                fields: {
+                  meetupUrlName: {
+                    "en-US": upcomingEventObject.urlname
+                  }
+                }
+              })
+            );
         }
       );
     }
