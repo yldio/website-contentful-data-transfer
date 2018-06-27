@@ -6,6 +6,7 @@ const Main = require("apr-main");
 const { CONTENTFUL_TOKEN, CONTENTFUL_SPACE, MEETUP_KEY } = process.env;
 
 const { processMeetupData } = require("./helpers/processMeetupData");
+const { processMeetupEvent } = require("./helpers/processMeetupEvent");
 
 const meetup = require("meetup-api")({
   key: MEETUP_KEY
@@ -16,20 +17,24 @@ const client = createClient({
   accessToken: CONTENTFUL_TOKEN
 });
 
+// Meetup npm module relies on callbacks, so making the below async/await is no-go
 meetup.getSelfGroups((err, res) => {
   // console.log(err, res);
   let selfGroups = processMeetupData(res);
 
+  console.log(selfGroups);
+
   selfGroups.forEach(group => {
     if (group.nextEvent !== 0) {
-      console.log(group);
-      console.log(group.nextEvent);
-      meetup.getEvent({ id: group.nextEvent, urlname: group.urlname }, function(
-        err,
-        resp
-      ) {
-        console.log(err, resp);
-      });
+      // console.log(group);
+      // console.log(group.nextEvent);
+      meetup.getEvent(
+        { id: group.nextEvent, urlname: group.urlname },
+        (err, res) => {
+          // console.log(res);
+          processMeetupEvent(res);
+        }
+      );
     }
   });
 });

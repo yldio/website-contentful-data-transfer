@@ -318,8 +318,7 @@ const rawMeetupData = [
       photo: [Object],
       category_ids: [Array]
     }
-  },
-  (ratelimit: { limit: "30", remaining: "29", reset: "10" })
+  }
 ];
 
 module.exports = {

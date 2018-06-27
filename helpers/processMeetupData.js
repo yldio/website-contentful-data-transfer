@@ -1,5 +1,4 @@
 const processMeetupData = arrayOfMeetups => {
-  console.log(arrayOfMeetups);
   let outputArray = [];
 
   arrayOfMeetups.forEach(meetup => {
