@@ -33,19 +33,51 @@ meetup.getSelfGroups((err, res) => {
         (err, res) => {
           // console.log(res);
           const upcomingEventObject = processMeetupEvent(res);
-
+          console.log(upcomingEventObject.time + upcomingEventObject.duration);
           client
             .getSpace(CONTENTFUL_SPACE)
             .then(space => space.getEnvironment("master"))
             .then(environment =>
               environment.createEntry("meetupEvent", {
                 fields: {
+                  thisMeetupCode: {
+                    "en-US": `${group.urlname}-${group.nextEvent}`
+                  },
                   meetupUrlName: {
-                    "en-US": upcomingEventObject.urlname
+                    "en-US": group.urlname
+                  },
+                  linkToEvent: {
+                    "en-US": upcomingEventObject.link
+                  },
+                  date: {
+                    "en-US": upcomingEventObject.date
+                  },
+                  startTime: {
+                    "en-US": new Date(upcomingEventObject.time)
+                  },
+                  endTime: {
+                    "en-US": new Date(
+                      upcomingEventObject.time + upcomingEventObject.duration
+                    )
+                  },
+                  address: {
+                    "en-US": `${upcomingEventObject.venue.name}&&${
+                      upcomingEventObject.venue.address1
+                    }&&${
+                      upcomingEventObject.venue.adress2
+                        ? upcomingEventObject.venue.adress2
+                        : ""
+                    }&&${
+                      upcomingEventObject.venue.address3
+                        ? upcomingEventObject.venue.address3
+                        : ""
+                    }&&${upcomingEventObject.venue.city}`
                   }
                 }
               })
-            );
+            )
+            .then(entry => console.log(entry))
+            .catch(console.error);
         }
       );
     }
@@ -63,4 +95,16 @@ meetup.getSelfGroups((err, res) => {
 //   const space = await client.getSpace(CONTENTFUL_SPACE);
 //   const contentTypeList = await space.getContentTypes();
 //   console.log(contentTypeList);
+// });
+
+// Main(async () => {
+//   const space = await client.getSpace(CONTENTFUL_SPACE);
+//   const entries = await space.getEntries({
+//     content_type: "meetupEvent"
+//   });
+//   const items = entries.items;
+//
+//   items.forEach(item => {
+//     console.log(item);
+//   });
 // });
