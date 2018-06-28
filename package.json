@@ -4,6 +4,7 @@
   },
   "dependencies": {
     "apr": "^2.0.2",
+    "apr-intercept": "^3.0.3",
     "apr-main": "^4.0.3",
     "apr-map": "^3.0.3",
     "contentful": "^6.1.1",
