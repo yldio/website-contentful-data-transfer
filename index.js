@@ -59,13 +59,23 @@ Main(async () => {
       if (ev) {
         // update
         ev.fields = Object.assign(ev.fields, entry.fields);
-        console.log(`Updating entry ${meetup.name}`);
+        console.log(`Updating entry ${meetup.eventName}`);
         return ev.update();
       }
 
       // create
-      console.log(`Creating entry ${meetup.name}`);
-      return environment.createEntry('meetupEvent', entry);
+      console.log(`Creating entry ${meetup.eventName}`);
+      const id = await environment.createEntry('meetupEvent', entry);
+      const newEntry = await environment.getEntry(id.sys.id);
+
+      console.log(`Publishing entry ${meetup.eventName}`);
+      return newEntry.publish();
+
+      // client.getSpace('<space_id>')
+      // .then((space) => space.getEntry('<entry_id>'))
+      // .then((entry) => entry.publish())
+      // .then((entry) => console.log(`Entry ${entry.sys.id} published.`))
+      // .catch(console.error)
     }
   );
 });

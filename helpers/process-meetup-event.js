@@ -1,7 +1,7 @@
 module.exports = eventObject => {
   let outputObject = {};
 
-  outputObject.name = eventObject.name;
+  outputObject.eventName = eventObject.name;
   outputObject.duration = eventObject.duration;
   outputObject.time = eventObject.time;
   outputObject.localTime = eventObject.local_time;

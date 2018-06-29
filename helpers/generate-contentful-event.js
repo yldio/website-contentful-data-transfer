@@ -5,7 +5,8 @@ module.exports = ({
   link,
   date,
   time,
-  duration
+  duration,
+  eventName
 }) => ({
   fields: {
     thisMeetupCode: {
@@ -30,6 +31,9 @@ module.exports = ({
       'en-US': `${venue.name}&&${venue.address1}&&${
         venue.adress2 ? venue.adress2 : ''
       }&&${venue.address3 ? venue.address3 : ''}&&${venue.city}`
+    },
+    eventTitle: {
+      'en-US': eventName
     }
   }
 });
