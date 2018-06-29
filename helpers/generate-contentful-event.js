@@ -6,7 +6,8 @@ module.exports = ({
   date,
   time,
   duration,
-  eventName
+  eventName,
+  description
 }) => ({
   fields: {
     thisMeetupCode: {
@@ -34,6 +35,9 @@ module.exports = ({
     },
     eventTitle: {
       'en-US': eventName
+    },
+    blurb: {
+      'en-US': description
     }
   }
 });

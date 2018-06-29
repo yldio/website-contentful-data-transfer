@@ -62,7 +62,11 @@ Main(async () => {
         // update
         ev.fields = Object.assign(ev.fields, entry.fields);
         console.log(`Updating entry ${meetup.eventName}`);
-        return ev.update();
+        const id = await ev.update();
+        const updatedEntry = await environment.getEntry(id.sys.id);
+
+        console.log(`Publishing creted entry ${meetup.eventName}`);
+        return updatedEntry.publish();
       }
 
       // create
@@ -70,7 +74,7 @@ Main(async () => {
       const id = await environment.createEntry('meetupEvent', entry);
       const newEntry = await environment.getEntry(id.sys.id);
 
-      console.log(`Publishing entry ${meetup.eventName}`);
+      console.log(`Publishing creted entry ${meetup.eventName}`);
       return newEntry.publish();
 
       // client.getSpace('<space_id>')

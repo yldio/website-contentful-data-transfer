@@ -9,6 +9,8 @@ describe('processes Meetup event', () => {
       duration: 9000000,
       time: 1531846800000,
       localTime: '18:00',
+      description:
+        'Kara Stubbs (@kiraarghy), a Software Engineer at MOO, talks about her experience with React and ReactReason.',
       date: '2018-07-17',
       venue: {
         name: 'JP Morgan',
