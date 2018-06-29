@@ -56,6 +56,8 @@ Main(async () => {
       const ev = find(events, ['fields.linkToEvent.en-US', meetup.link]);
       const entry = generateContentfulEvent({ ...meetup, ...group });
 
+      console.log(entry);
+
       if (ev) {
         // update
         ev.fields = Object.assign(ev.fields, entry.fields);

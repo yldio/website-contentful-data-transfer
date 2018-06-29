@@ -1,3 +1,5 @@
+const striptags = require('striptags');
+
 module.exports = eventObject => {
   let outputObject = {};
 
@@ -14,6 +16,9 @@ module.exports = eventObject => {
     city: eventObject.venue.city
   };
   outputObject.link = eventObject.link;
+  outputObject.description = striptags(
+    eventObject.description.split('EVENT SUMMARY')[1].split('EVENT DETAILS')[0]
+  ).trim();
 
   console.log(outputObject);
   return outputObject;
