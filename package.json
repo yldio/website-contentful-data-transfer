@@ -14,5 +14,8 @@
     "lodash.find": "^4.6.0",
     "meetup-api": "^1.4.32",
     "striptags": "^3.1.1"
+  },
+  "devDependencies": {
+    "nock": "^9.4.1"
   }
 }

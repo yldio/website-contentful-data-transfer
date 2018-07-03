@@ -28,7 +28,7 @@ const client = createClient({
 const getSelfGroups = promisify(meetup.getSelfGroups.bind(meetup));
 const getEvent = promisify(meetup.getEvent.bind(meetup));
 
-Main(async () => {
+const run = async () => {
   const space = await client.getSpace(CONTENTFUL_SPACE);
   const environment = await space.getEnvironment('master');
 
@@ -84,4 +84,10 @@ Main(async () => {
       // .catch(console.error)
     }
   );
-});
+};
+
+if (!module.parent) {
+  Main(async () => run());
+}
+
+module.exports = run;

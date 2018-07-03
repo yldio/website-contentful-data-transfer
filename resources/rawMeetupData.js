@@ -1,4 +1,4 @@
-const rawMeetupData = [
+module.exports = [
   {
     id: 28180588,
     name: 'Manchester Web Meetup',
@@ -320,7 +320,3 @@ const rawMeetupData = [
     }
   }
 ];
-
-module.exports = {
-  rawMeetupData
-};
