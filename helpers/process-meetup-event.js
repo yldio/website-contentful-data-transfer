@@ -20,6 +20,6 @@ module.exports = eventObject => {
     eventObject.description.split('EVENT SUMMARY')[1].split('EVENT DETAILS')[0]
   ).trim();
 
-  console.log(outputObject);
+  // console.log(outputObject);
   return outputObject;
 };
