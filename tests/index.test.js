@@ -276,29 +276,7 @@ const updateContentfulEntry = nock('https://api.contentful.com/')
 const publishUpdatedEntry = nock('https://api.contentful.com/')
   .defaultReplyHeaders({ 'Content-Type': 'application/json' })
   .put(
-    `/spaces/${CONTENTFUL_SPACE}/environments/master/entries/2C3au2K5VaQiyOeowekkM4/published`,
-    {
-      fields: {
-        thisMeetupCode: { 'en-US': 'ReactJS-Girls-London-251946999' },
-        meetupUrlName: { 'en-US': 'ReactJS-Girls-London' },
-        linkToEvent: {
-          'en-US':
-            'https://www.meetup.com/ReactJS-Girls-London/events/251946999/'
-        },
-        date: { 'en-US': '2018-07-17' },
-        startTime: { 'en-US': '2018-07-17T17:00:00.000Z' },
-        endTime: { 'en-US': '2018-07-17T19:30:00.000Z' },
-        address: { 'en-US': 'JP Morgan&&4 John Carpenter St&&&&&&London' },
-        eventTitle: {
-          'en-US':
-            'ReactJS Girls #11 -  Reason, the good, the bad and ugly bits'
-        },
-        blurb: {
-          'en-US':
-            'Kara Stubbs (@kiraarghy), a Software Engineer at MOO, talks about her experience with React and ReactReason.'
-        }
-      }
-    }
+    `/spaces/${CONTENTFUL_SPACE}/environments/master/entries/2C3au2K5VaQiyOeowekkM4/published`
   )
   .reply(200, {
     sys: {
@@ -306,7 +284,7 @@ const publishUpdatedEntry = nock('https://api.contentful.com/')
       id: '2C3au2K5VaQiyOeowekkM4',
       type: 'Entry',
       createdAt: '2018-06-29T10:42:40.378Z',
-      updatedAt: '2018-07-03T13:50:41.816Z',
+      updatedAt: '2018-07-03T14:01:59.449Z',
       environment: {
         sys: { id: 'master', type: 'Link', linkType: 'Environment' }
       },
@@ -316,14 +294,14 @@ const publishUpdatedEntry = nock('https://api.contentful.com/')
       updatedBy: {
         sys: { type: 'Link', linkType: 'User', id: '4S85cDvPUPr1sI13p6pT26' }
       },
-      publishedCounter: 31,
-      version: 69,
+      publishedCounter: 33,
+      version: 73,
       publishedBy: {
         sys: { type: 'Link', linkType: 'User', id: '4S85cDvPUPr1sI13p6pT26' }
       },
-      publishedVersion: 68,
+      publishedVersion: 72,
       firstPublishedAt: '2018-06-29T10:42:41.431Z',
-      publishedAt: '2018-07-03T13:50:41.816Z',
+      publishedAt: '2018-07-03T14:01:59.449Z',
       contentType: {
         sys: { type: 'Link', linkType: 'ContentType', id: 'meetupEvent' }
       }
@@ -347,4 +325,5 @@ const publishUpdatedEntry = nock('https://api.contentful.com/')
       }
     }
   });
+
 Main(async () => main());
