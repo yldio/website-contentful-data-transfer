@@ -29,11 +29,8 @@ const getSelfGroups = promisify(meetup.getSelfGroups.bind(meetup));
 const getEvent = promisify(meetup.getEvent.bind(meetup));
 
 const run = async () => {
-  console.log('running run');
   const space = await client.getSpace(CONTENTFUL_SPACE);
-  console.log({ space });
   const environment = await space.getEnvironment('master');
-  console.log({ environment });
 
   const { items: events } = await environment.getEntries({
     limit: 1000,
@@ -44,7 +41,6 @@ const run = async () => {
     processMeetupData(await getSelfGroups()),
     async group => {
       const { urlname, meetupId, nextEvent } = group;
-      console.log({ group });
 
       if (!nextEvent) {
         return null;
@@ -57,11 +53,8 @@ const run = async () => {
         })
       );
 
-      console.log({ meetup });
       const ev = find(events, ['fields.linkToEvent.en-US', meetup.link]);
       const entry = generateContentfulEvent({ ...meetup, ...group });
-
-      // console.log(entry);
 
       if (ev) {
         // update
@@ -81,12 +74,6 @@ const run = async () => {
 
       console.log(`Publishing creted entry ${meetup.eventName}`);
       return newEntry.publish();
-
-      // client.getSpace('<space_id>')
-      // .then((space) => space.getEntry('<entry_id>'))
-      // .then((entry) => entry.publish())
-      // .then((entry) => console.log(`Entry ${entry.sys.id} published.`))
-      // .catch(console.error)
     }
   );
 };

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "CONTENTFUL_TOKEN=CFPAT-919507d467814556b088cd8f7141dba5165a7a1f5c081799357e9c3b66997324 jest"
+    "test": "jest"
   },
   "dependencies": {
     "apr": "^2.0.2",

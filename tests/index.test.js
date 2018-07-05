@@ -28,19 +28,8 @@ describe('main script pathway', () => {
     publishUpdatedEntryNock();
   });
 
-  it('does magic', async done => {
-    main().then(done);
+  it('does magic', async () => {
+    await main();
+    expect(nock.isDone()).toBeTruthy();
   });
 });
-
-// describe('recording', () => {
-//   // nock.recorder.rec();
-//
-//
-//   it('does something', done => {
-//     main().then(done);
-//     // Main(async () => await main(), done());
-//     // let nockCalls = nock.recorder.play();
-//     // console.log(nockCalls);
-//   });
-// });
