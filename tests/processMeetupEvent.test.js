@@ -1,5 +1,5 @@
 const processMeetupEvent = require('../helpers/process-meetup-event');
-const { rawMeetupEventData } = require('../resources/rawMeetupEventData');
+const rawMeetupEventData = require('../resources/rawMeetupEventData');
 
 describe('processes Meetup event', () => {
   it('returns desired structure', () => {
