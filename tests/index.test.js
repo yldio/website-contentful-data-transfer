@@ -8,36 +8,46 @@ const {
   contentfulSpaceNock,
   contentfulEnvNock,
   contentfulGetEntriesNock,
-  contentfulGetSingleEntryNock,
+  contentfulGetSingleEntryNock
+} = require('../helpers/sharedNocks');
+
+const {
   updateContentfulEntryNock,
-  publishUpdatedEntryNock,
+  publishUpdatedEntryNock
+} = require('../helpers/updateOnlyNocks');
+
+const {
+  publishCreatedEntryNock,
   createContentfulEntryNock,
-  contentfulGetEntriesNoMatchNock,
-  publishCreatedEntryNock
-} = require('../helpers/nocks');
+  contentfulGetEntriesNoMatchNock
+} = require('../helpers/createOnlyNocks');
 
-// describe('main script pathway for update', () => {
-//   nock.disableNetConnect();
-//   // nock.recorder.rec();
-//
-//   beforeAll(() => {
-//     meetupSelfGroupNock();
-//     meetupEventNock();
-//     contentfulSpaceNock();
-//     contentfulEnvNock();
-//     contentfulGetEntriesNock();
-//     contentfulGetSingleEntryNock();
-//     updateContentfulEntryNock();
-//     publishUpdatedEntryNock();
-//   });
-//
-//   it('checks pathway for update', async () => {
-//     await main();
-//     expect(nock.isDone()).toBeTruthy();
-//   });
-// });
+const {
+  meetupSelfGroupNoEventsNock
+} = require('../helpers/noUpcomingEventsOnly');
 
-describe.only('main script pathway for create', () => {
+describe('main script pathway for update', () => {
+  nock.disableNetConnect();
+  // nock.recorder.rec();
+
+  beforeAll(() => {
+    meetupSelfGroupNock();
+    meetupEventNock();
+    contentfulSpaceNock();
+    contentfulEnvNock();
+    contentfulGetEntriesNock();
+    contentfulGetSingleEntryNock();
+    updateContentfulEntryNock();
+    publishUpdatedEntryNock();
+  });
+
+  it('checks pathway for update', async () => {
+    await main();
+    expect(nock.isDone()).toBeTruthy();
+  });
+});
+
+describe('main script pathway for create', () => {
   nock.disableNetConnect();
   // nock.recorder.rec();
 
@@ -52,6 +62,23 @@ describe.only('main script pathway for create', () => {
   });
 
   it('checks pathway for create', async () => {
+    await main();
+    expect(nock.isDone()).toBeTruthy();
+  });
+});
+
+describe('main script pathway for no upcoming events', () => {
+  nock.disableNetConnect();
+  // nock.recorder.rec();
+
+  beforeAll(() => {
+    meetupSelfGroupNoEventsNock();
+    contentfulSpaceNock();
+    contentfulEnvNock();
+    contentfulGetEntriesNock();
+  });
+
+  it('checks pathway for no upcoming events', async () => {
     await main();
     expect(nock.isDone()).toBeTruthy();
   });
