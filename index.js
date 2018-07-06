@@ -53,6 +53,8 @@ const run = async () => {
         })
       );
 
+      console.log(JSON.stringify(events));
+
       const ev = find(events, ['fields.linkToEvent.en-US', meetup.link]);
       const entry = generateContentfulEvent({ ...meetup, ...group });
 
@@ -76,6 +78,7 @@ const run = async () => {
       return newEntry.publish();
     }
   );
+  console.log(entries);
 };
 
 if (!module.parent) {

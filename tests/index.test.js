@@ -10,10 +10,34 @@ const {
   contentfulGetEntriesNock,
   contentfulGetSingleEntryNock,
   updateContentfulEntryNock,
-  publishUpdatedEntryNock
+  publishUpdatedEntryNock,
+  createContentfulEntryNock,
+  contentfulGetEntriesNoMatchNock,
+  publishCreatedEntryNock
 } = require('../helpers/nocks');
 
-describe('main script pathway', () => {
+// describe('main script pathway for update', () => {
+//   nock.disableNetConnect();
+//   // nock.recorder.rec();
+//
+//   beforeAll(() => {
+//     meetupSelfGroupNock();
+//     meetupEventNock();
+//     contentfulSpaceNock();
+//     contentfulEnvNock();
+//     contentfulGetEntriesNock();
+//     contentfulGetSingleEntryNock();
+//     updateContentfulEntryNock();
+//     publishUpdatedEntryNock();
+//   });
+//
+//   it('checks pathway for update', async () => {
+//     await main();
+//     expect(nock.isDone()).toBeTruthy();
+//   });
+// });
+
+describe.only('main script pathway for create', () => {
   nock.disableNetConnect();
   // nock.recorder.rec();
 
@@ -22,13 +46,12 @@ describe('main script pathway', () => {
     meetupEventNock();
     contentfulSpaceNock();
     contentfulEnvNock();
-    contentfulGetEntriesNock();
-    contentfulGetSingleEntryNock();
-    updateContentfulEntryNock();
-    publishUpdatedEntryNock();
+    contentfulGetEntriesNoMatchNock();
+    createContentfulEntryNock();
+    publishCreatedEntryNock();
   });
 
-  it('does magic', async () => {
+  it('checks pathway for create', async () => {
     await main();
     expect(nock.isDone()).toBeTruthy();
   });
