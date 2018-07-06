@@ -28,7 +28,6 @@ const {
 
 describe('main script pathway for update', () => {
   nock.disableNetConnect();
-  // nock.recorder.rec();
 
   beforeAll(() => {
     meetupSelfGroupNock();
@@ -49,7 +48,6 @@ describe('main script pathway for update', () => {
 
 describe('main script pathway for create', () => {
   nock.disableNetConnect();
-  // nock.recorder.rec();
 
   beforeAll(() => {
     meetupSelfGroupNock();
@@ -69,7 +67,6 @@ describe('main script pathway for create', () => {
 
 describe('main script pathway for no upcoming events', () => {
   nock.disableNetConnect();
-  // nock.recorder.rec();
 
   beforeAll(() => {
     meetupSelfGroupNoEventsNock();
