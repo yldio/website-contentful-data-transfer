@@ -60,7 +60,7 @@ const run = async () => {
         })
       );
 
-      console.log(JSON.stringify(events));
+      // console.log(JSON.stringify(events));
 
       const ev = find(events, ['fields.linkToEvent.en-US', meetup.link]);
       const entry = generateContentfulEvent({ ...meetup, ...group });

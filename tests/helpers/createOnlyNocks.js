@@ -142,7 +142,6 @@ const createContentfulEntryNock = () =>
 
 const publishCreatedEntryNock = () =>
   nock('https://api.contentful.com')
-    .log(console.log)
     .defaultReplyHeaders({
       'Content-Type': 'application/json',
       'Access-Control-Allow-Methods': 'DELETE,GET,HEAD,POST,PUT,OPTIONS',

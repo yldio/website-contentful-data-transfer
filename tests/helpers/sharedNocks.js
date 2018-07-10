@@ -1,7 +1,7 @@
 const nock = require('nock');
-const meetupGroupResponse = require('../resources/rawMeetupData');
-const meetupEventResponse = require('../resources/rawMeetupEventData');
-const generateContentfulEvent = require('../helpers/generate-contentful-event');
+const meetupGroupResponse = require('../../resources/rawMeetupData');
+const meetupEventResponse = require('../../resources/rawMeetupEventData');
+const generateContentfulEvent = require('../../helpers/generate-contentful-event');
 const { CONTENTFUL_TOKEN, CONTENTFUL_SPACE, MEETUP_KEY } = process.env;
 
 const meetupSelfGroupNock = () =>

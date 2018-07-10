@@ -9,22 +9,22 @@ const {
   contentfulEnvNock,
   contentfulGetEntriesNock,
   contentfulGetSingleEntryNock
-} = require('../helpers/sharedNocks');
+} = require('./helpers/sharedNocks');
 
 const {
   updateContentfulEntryNock,
   publishUpdatedEntryNock
-} = require('../helpers/updateOnlyNocks');
+} = require('./helpers/updateOnlyNocks');
 
 const {
   publishCreatedEntryNock,
   createContentfulEntryNock,
   contentfulGetEntriesNoMatchNock
-} = require('../helpers/createOnlyNocks');
+} = require('./helpers/createOnlyNocks');
 
 const {
   meetupSelfGroupNoEventsNock
-} = require('../helpers/noUpcomingEventsOnly');
+} = require('./helpers/noUpcomingEventsOnly');
 
 describe('main script pathway for update', () => {
   nock.disableNetConnect();
