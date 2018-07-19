@@ -72,7 +72,7 @@ const run = async () => {
         const id = await ev.update();
         const updatedEntry = await environment.getEntry(id.sys.id);
 
-        console.log(`Publishing creted entry ${meetup.eventName}`);
+        console.log(`Publishing updated entry ${meetup.eventName}`);
         return updatedEntry.publish();
       }
 
