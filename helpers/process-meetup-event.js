@@ -15,11 +15,15 @@ module.exports = eventObject => {
       city: eventObject.venue.city
     },
     link: eventObject.link,
-    description: striptags(
-      eventObject.description
-        .split('EVENT SUMMARY')[1]
-        .split('EVENT DETAILS')[0]
-    ).trim()
+    description:
+      eventObject.description.includes('EVENT SUMMARY') &&
+      eventObject.description.includes('EVENT DETAILS')
+        ? striptags(
+            eventObject.description
+              .split('EVENT SUMMARY')[1]
+              .split('EVENT DETAILS')[0]
+          ).trim()
+        : 'For more information, please visit the Meetup page'
   };
 
   return outputObject;
