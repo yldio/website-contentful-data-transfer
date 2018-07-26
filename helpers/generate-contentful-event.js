@@ -29,9 +29,9 @@ module.exports = ({
       'en-US': new Date(time + duration)
     },
     address: {
-      'en-US': `${venue.name}&&${venue.address1}&&${
+      'en-US': (venue !== "To Be Confirmed") ? `${venue.name}&&${venue.address1}&&${
         venue.adress2 ? venue.adress2 : ''
-      }&&${venue.address3 ? venue.address3 : ''}&&${venue.city}`
+      }&&${venue.address3 ? venue.address3 : ''}&&${venue.city}` : "To Be Confirmed"
     },
     eventTitle: {
       'en-US': eventName

@@ -65,6 +65,7 @@ const run = async () => {
       const ev = find(events, ['fields.linkToEvent.en-US', meetup.link]);
       const entry = generateContentfulEvent({ ...meetup, ...group });
 
+
       if (ev) {
         // update
         ev.fields = Object.assign(ev.fields, entry.fields);
@@ -85,7 +86,6 @@ const run = async () => {
       return newEntry.publish();
     }
   );
-  console.log(entries);
 };
 
 if (!module.parent) {
