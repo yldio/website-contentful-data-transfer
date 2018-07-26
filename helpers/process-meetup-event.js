@@ -1,6 +1,8 @@
 const striptags = require('striptags');
 
 module.exports = eventObject => {
+  console.log(eventObject.hasOwnProperty("venue"));
+  console.log(eventObject.venue);
   let outputObject = {
     eventName: eventObject.name,
     duration: eventObject.duration,
