@@ -1,0 +1,5 @@
+# Project dependencies
+node_modules
+
+# Environment codes
+.env
