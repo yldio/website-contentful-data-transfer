@@ -106,7 +106,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/website-meetup-contentful/dev/1532624749140-2018-07-26T17:05:49.140Z/website-meetup-contentful.zip"
+                "S3Key": "serverless/website-meetup-contentful/dev/1533807521909-2018-08-09T09:38:41.909Z/website-meetup-contentful.zip"
               },
               "FunctionName": "website-meetup-contentful-dev-app",
               "Handler": "handlers/app.handler",
@@ -125,14 +125,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "AppLambdaVersiontAwvybfxYUeKzhmXdZW8y44GaaMWyEdLsaPVlw640ZQ": {
+          "AppLambdaVersionFXE6IsYf1D13vkFmjCL3mlD3Tw1NaOkw937Pt7N31SU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "bN7QnKYLbMZTnrnBQpnFqW68+Xn2TLIVkOU9wJSb0F8="
+              "CodeSha256": "5F5T8bZuBKGwVRh70ywdMvNrBYFbhcTXYIW3OTKg9d8="
             }
           },
           "AppEventsRuleSchedule1": {
@@ -192,7 +192,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersiontAwvybfxYUeKzhmXdZW8y44GaaMWyEdLsaPVlw640ZQ"
+              "Ref": "AppLambdaVersionFXE6IsYf1D13vkFmjCL3mlD3Tw1NaOkw937Pt7N31SU"
             }
           }
         }
@@ -233,10 +233,12 @@
         "vpc": {}
       }
     },
+    "app": "website-meetup-contentful",
+    "tenant": "annabebb",
     "artifact": "/home/anna/code/website-contentful-data-transfer/.serverless/website-meetup-contentful.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/website-meetup-contentful/dev/1532624749140-2018-07-26T17:05:49.140Z",
+    "artifactDirectoryName": "serverless/website-meetup-contentful/dev/1533807521909-2018-08-09T09:38:41.909Z",
     "artifact": "website-meetup-contentful.zip"
   }
 }

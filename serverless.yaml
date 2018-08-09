@@ -1,5 +1,6 @@
 service: website-meetup-contentful
-
+app: website-meetup-contentful
+tenant: annabebb
 provider:
   name: aws
   runtime: nodejs8.10

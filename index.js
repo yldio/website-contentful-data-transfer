@@ -7,6 +7,8 @@ const { default: Map } = require('apr-map');
 const Intercept = require('apr-intercept');
 const { promisify } = require('util');
 const find = require('lodash.find');
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 
 // Set up dot-env variables
 const { CONTENTFUL_TOKEN, CONTENTFUL_SPACE, MEETUP_KEY } = process.env;
@@ -82,6 +84,29 @@ const run = async () => {
       console.log(`Creating entry ${meetup.eventName}`);
       const id = await environment.createEntry('meetupEvent', entry);
       const newEntry = await environment.getEntry(id.sys.id);
+
+      // ----
+      // Webhook for Slack Mission
+
+      const slackMissionMessage = {
+        text : `Woohoo! There's a new meetup event: ${meetup.link}`
+      }
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", 'https://hooks.slack.com/services/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' , true)
+
+
+      //Send the proper header information along with the request
+      xhr.setRequestHeader("Content-Type", "application/json");
+
+      xhr.onreadystatechange = function() {//Call a function when the state changes.
+          if(this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+              // Request finished. Do processing here.
+          }
+      }
+
+      xhr.send(JSON.stringify(slackMissionMessage));
+
+      // ----
 
       console.log(`Publishing creted entry ${meetup.eventName}`);
       return newEntry.publish();
