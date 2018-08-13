@@ -11,7 +11,7 @@ const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 
 // Set up dot-env variables
-const { CONTENTFUL_TOKEN, CONTENTFUL_SPACE, MEETUP_KEY } = process.env;
+const { CONTENTFUL_TOKEN, CONTENTFUL_SPACE, MEETUP_KEY, SLACK_WEBHOOK_URL } = process.env;
 
 // Import helper functions
 const generateContentfulEvent = require('./helpers/generate-contentful-event');
@@ -92,7 +92,7 @@ const run = async () => {
         text : `Woohoo! There's a new meetup event: ${meetup.link}`
       }
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", 'https://hooks.slack.com/services/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' , true)
+      xhr.open("POST", 'SLACK_WEBHOOK_URL' , true)
 
 
       //Send the proper header information along with the request
